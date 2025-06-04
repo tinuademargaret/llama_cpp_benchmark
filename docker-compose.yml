@@ -6,7 +6,7 @@ services:
     volumes:
       - ./models:/models
     environment:
-      LLAMA_ARG_MODEL: /models/llama-3.1-8b-instruct.gguf
+      LLAMA_ARG_MODEL_URLL: https://huggingface.co/unsloth/DeepSeek-R1-0528-Qwen3-8B-unsloth-bnb-4bit
       LLAMA_ARG_CTX_SIZE: 4096
       LLAMA_ARG_N_PARALLEL: 2
       LLAMA_ARG_ENDPOINT_METRICS: 1
