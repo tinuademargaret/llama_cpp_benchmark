@@ -48,8 +48,9 @@ def make_map_fn(split):
     return process_fn
 
 
-async def fetch(session, url, params):
-    async with session.get(url, params=params) as r:
+async def fetch(session, url, data):
+    print("Now sending request")
+    async with session.post(url, json=data) as r:
         return await r.text()
 
 
@@ -73,7 +74,7 @@ async def main():
 
     data = df.iloc[0 : args.bs]
 
-    print(len(data))
+    # data = ["write python code to sort integers in a list", "write python code to sort integers in a list"]
 
     assert len(data) == args.bs
 
@@ -82,7 +83,12 @@ async def main():
 
     url = "http://localhost:8080/completion"
 
-    async with aiohttp.ClientSession() as session:
+    timeout = aiohttp.ClientTimeout(
+        total=1600,    
+        
+    )
+
+    async with aiohttp.ClientSession(timeout=timeout) as session:
         tasks = []
 
         for i in range(0, len(data), step):

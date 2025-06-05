@@ -1,13 +1,16 @@
 services:
   llamacpp-server:
-    image: ghcr.io/ggml-org/llama.cpp:server
+    image: ghcr.io/ggml-org/llama.cpp:server-cuda
     ports:
       - 8080:8080
+    command: 
+      --n-gpu-layers 36
     volumes:
       - ./models:/models
     environment:
-      LLAMA_ARG_MODEL_URLL: https://huggingface.co/unsloth/DeepSeek-R1-0528-Qwen3-8B-unsloth-bnb-4bit
-      LLAMA_ARG_CTX_SIZE: 4096
-      LLAMA_ARG_N_PARALLEL: 2
+      LLAMA_ARG_HF_REPO: unsloth/DeepSeek-R1-0528-Qwen3-8B-GGUF:Q4_K_XL
+      LLAMA_ARG_CTX_SIZE: 100
+      LLAMA_ARG_N_PARALLEL: 4
       LLAMA_ARG_ENDPOINT_METRICS: 1
       LLAMA_ARG_PORT: 8080
+      
